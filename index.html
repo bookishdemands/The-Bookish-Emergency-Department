@@ -1161,7 +1161,7 @@
     }
 
     function signatureText(){
-      return (els.readerSignature.value || "").trim() || "By Bookish Block Resident";
+      return (els.readerSignature.value || "").trim();
     }
 
     function footerStamp(){
@@ -1663,7 +1663,7 @@
           <div class="card-final-label">${escapeHtml(currentResult.finalLabel)}</div>
           <div class="card-final">${escapeHtml(currentResult.finalText)}</div>
           <div class="card-footer-stamp">${escapeHtml(currentResult.footer)}</div>
-          <div class="card-signature">${escapeHtml(signatureText())}</div>
+          <input type="text" id="readerSignature" placeholder="By Bookish Block Resident" />
           <div class="card-brand">The Bookish Emergency Department</div>
         </div>
       `;
@@ -2040,14 +2040,13 @@
       currentStyle = MODE_CONFIG.notice.style;
       currentPalette = PALETTES[0].id;
       currentRatio = "4:6";
-      els.readerSignature.value = "By Bookish Block Resident";
+      els.readerSignature.value = "";
       els.presetName.value = "";
       if(els.presetPicker) els.presetPicker.value = "";
       renderAll();
       showToast("All fields cleared.");
     });
 
-    els.readerSignature.value = "By Bookish Block Resident";
     renderAll();
   </script>
 </body>

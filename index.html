@@ -1607,7 +1607,11 @@
         ...result,
         captions:{
           shortCaption: `${result.title}. ${result.finalText}`,
-          longCaption: `${result.title}\n\n${result.subtitle}\n\n${result.fields.map(([k,v]) => `${k}: ${v}`).join("\n")}\n\n${result.finalLabel}: ${result.finalText}\n\n${result.footer} · ${signatureText()} · ${paletteName}`,
+          longCaption: `${result.title}\n\n${result.subtitle}\n\n${result.fields.map(([k,v]) => `${k}: ${v}`).join("\n")}\n\n${result.finalLabel}: ${result.finalText}\n\n${[
+          result.footer,
+          signatureText(),
+          paletteName
+        ].filter(Boolean).join(" · ")}`,
           storyLine: `${result.title} · ${result.finalText}`,
           groupDrop: `Official update: ${result.title}. ${result.finalText}`
         }
@@ -1663,8 +1667,8 @@
           <div class="card-final-label">${escapeHtml(currentResult.finalLabel)}</div>
           <div class="card-final">${escapeHtml(currentResult.finalText)}</div>
           <div class="card-footer-stamp">${escapeHtml(currentResult.footer)}</div>
-          <input type="text" id="readerSignature" placeholder="By Bookish Block Resident" />
-          <div class="card-brand">The Bookish Emergency Department</div>
+          ${signatureText() ? `<div class="card-signature">${escapeHtml(signatureText())}</div>` : ""}
+        <div class="card-brand">The Bookish Emergency Department</div>
         </div>
       `;
 
@@ -1782,7 +1786,7 @@
       currentRatio = item.ratio || currentRatio;
       answers = item.answers || {};
       currentResult = item.result;
-      els.readerSignature.value = item.signature || "By Bookish Block Resident";
+      els.readerSignature.value = item.signature || "";
       els.footerStamp.value = item.stamp || FOOTER_STAMPS[0];
       renderAll();
       renderResult();
